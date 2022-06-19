@@ -1,5 +1,8 @@
 from pathlib import Path
 from typing import Dict, Any, List, Optional
+import string
+import re
+import csv
 
 
 def count_words(text: str) -> Dict[str, int]:
@@ -28,7 +31,20 @@ def count_words(text: str) -> Dict[str, int]:
 
     # пиши свой код здесь
 
-    return {}
+    import re
+    import string
+    dictionary = {}
+    words = text.translate(str.maketrans('', '', string.punctuation))
+    words = words.lower()
+    words = words.split()
+
+    for i in words:
+        if (i.isalpha()):
+            dictionary[i] = dictionary.get(i, 0) + 1
+
+
+
+    return dictionary
 
 
 def exp_list(numbers: List[int], exp: int) -> List[int]:
@@ -42,7 +58,10 @@ def exp_list(numbers: List[int], exp: int) -> List[int]:
 
     # пиши свой код здесь
 
-    return []
+    for i in range (len(numbers)):
+        numbers[i] **= exp
+
+    return numbers
 
 
 def get_cashback(operations: List[Dict[str, Any]], special_category: List[str]) -> float:
@@ -106,5 +125,15 @@ def csv_reader(header: str) -> int:
     """
 
     # пиши свой код здесь
+    baza = []
+    with open(get_path_to_file()) as file:
 
-    return 0
+        read = csv.DictReader(file)
+        for stroka in read:
+            baza.append(stroka[header])
+        num_sym = len(set(baza))
+
+
+
+
+    return num_sym
