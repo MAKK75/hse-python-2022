@@ -40,12 +40,23 @@ class Employee:
 
         # пиши свой код здесь
 
+        self.name = name
+        if isinstance(salary, int):
+            self._salary = salary
+        else:
+            raise ValueError
+        self.position = position
+
+
     def get_salary(self) -> int:
         """
         Метод возвращает зарплату сотрудника.
         """
 
         # пиши свой код здесь
+
+
+        return self._salary
 
     def __eq__(self, other: object) -> bool:
         """
@@ -57,6 +68,12 @@ class Employee:
 
         # пиши свой код здесь
 
+        if not(isinstance(other, Employee)):
+            raise TypeError
+        if other.position not in list(POSITIONS.keys()):
+            raise ValueError
+        return get_position_level(self.position) == get_position_level(other.position)
+
     def __str__(self):
         """
         Задача: реализовать строковое представление объекта.
@@ -64,6 +81,8 @@ class Employee:
         """
 
         # пиши свой код здесь
+
+        return f"name: {self.name} position: {self.position}"
 
     def __hash__(self):
         return id(self)
@@ -84,6 +103,10 @@ class Developer(Employee):
 
         # пиши свой код здесь
 
+        self.name = name
+        self._salary = salary
+        self.language = language
+
 
 class Manager(Employee):
     """
@@ -98,3 +121,6 @@ class Manager(Employee):
         """
 
         # пиши свой код здесь
+
+        super().__init__(name, 'manager', salary)
+
